@@ -70,14 +70,14 @@ export default function TeacherDashboard() {
             <input
               type="text"
               placeholder="Course Name"
-              className="w-full border p-3 rounded-lg mb-3 text-sm text-gray-800 placeholder-gray-400"
+              className="w-full border p-3 rounded-lg mb-3 text-sm text-gray-800"
               value={courseName}
               onChange={e => setCourseName(e.target.value)}
             />
             <input
               type="text"
               placeholder="Semester (e.g. Semester 1 2024)"
-              className="w-full border p-3 rounded-lg mb-3 text-sm text-gray-800 placeholder-gray-400"
+              className="w-full border p-3 rounded-lg mb-3 text-sm text-gray-800"
               value={semester}
               onChange={e => setSemester(e.target.value)}
             />
