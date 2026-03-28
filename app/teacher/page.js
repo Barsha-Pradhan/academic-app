@@ -71,3 +71,45 @@ export default function TeacherDashboard() {
               type="text"
               placeholder="Course Name"
               className="w-full border p-3 rounded-lg mb-3 text-sm text-gray-800 placeholder-gray-400"
+              value={courseName}
+              onChange={e => setCourseName(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Semester (e.g. Semester 1 2024)"
+              className="w-full border p-3 rounded-lg mb-3 text-sm text-gray-800 placeholder-gray-400"
+              value={semester}
+              onChange={e => setSemester(e.target.value)}
+            />
+            <div className="flex gap-2">
+              <button onClick={handleAddCourse} className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm">Save</button>
+              <button onClick={() => setShowAddCourse(false)} className="bg-gray-200 px-4 py-2 rounded-lg text-sm">Cancel</button>
+            </div>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {courses.length === 0 && (
+            <div className="bg-white p-5 rounded-xl shadow col-span-2">
+              <p className="text-gray-400 text-sm">No courses yet. Click "Add Course" to get started.</p>
+            </div>
+          )}
+          {courses.map(course => (
+            <div key={course.id} className="bg-white p-5 rounded-xl shadow">
+              <h3 className="font-semibold text-lg text-gray-800">{course.name}</h3>
+              <p className="text-gray-500 text-sm mb-4">{course.semester}</p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => router.push(`/teacher/course/${course.id}`)}
+                  className="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm"
+                >
+                  Manage Course
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
