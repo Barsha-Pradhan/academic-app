@@ -5,16 +5,21 @@ import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
   const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleLogin = async () => {
+  const loginAs = async (role) => {
     setLoading(true)
     setError('')
 
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+    const credentials = {
+      teacher: { email: 'teacher@test.com', password: 'password123' },
+      student: { email: 'student@gmail.com', password: 'password123' },
+      parent: { email: 'parent@test.com', password: 'password123' },
+    }
+
+    const { email, password } = credentials[role]
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
 
     if (error) {
       setError(error.message)
@@ -22,53 +27,45 @@ export default function LoginPage() {
       return
     }
 
-    const { data: userData } = await supabase
-      .from('users')
-      .select('role')
-      .eq('id', data.user.id)
-      .single()
-
-    if (userData?.role === 'teacher') router.push('/teacher')
-    else if (userData?.role === 'student') router.push('/student')
-    else if (userData?.role === 'parent') router.push('/parent')
-
+    router.push(`/${role}`)
     setLoading(false)
   }
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-2">Academic App</h1>
-        <p className="text-center text-gray-500 mb-6">Sign in to your account</p>
+        <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">Academic App</h1>
+        <p className="text-center text-gray-500 mb-8">Select your role to continue</p>
 
         {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full border border-gray-300 p-3 rounded-lg mb-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full border border-gray-300 p-3 rounded-lg mb-5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <button
-          onClick={handleLogin}
-          disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-        >
-          {loading ? 'Signing in...' : 'Sign In'}
-        </button>
+        <div className="flex flex-col gap-4">
+          <button
+            onClick={() => loginAs('teacher')}
+            disabled={loading}
+            className="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 transition text-lg flex items-center justify-center gap-3"
+          >
+            <span className="text-2xl">👨‍🏫</span> Login as Teacher
+          </button>
 
-        <p className="text-center text-sm text-gray-500 mt-4">
-          Don't have an account?{' '}
-          <a href="/register" className="text-blue-600 hover:underline">Register</a>
-        </p>
+          <button
+            onClick={() => loginAs('student')}
+            disabled={loading}
+            className="w-full bg-green-600 text-white py-4 rounded-xl font-semibold hover:bg-green-700 transition text-lg flex items-center justify-center gap-3"
+          >
+            <span className="text-2xl">👨‍🎓</span> Login as Student
+          </button>
+
+          <button
+            onClick={() => loginAs('parent')}
+            disabled={loading}
+            className="w-full bg-purple-600 text-white py-4 rounded-xl font-semibold hover:bg-purple-700 transition text-lg flex items-center justify-center gap-3"
+          >
+            <span className="text-2xl">👨‍👩‍👧</span> Login as Parent
+          </button>
+        </div>
+
+        {loading && <p className="text-center text-gray-400 text-sm mt-4">Signing in...</p>}
       </div>
     </div>
   )
