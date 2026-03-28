@@ -66,7 +66,7 @@ export default function StudentDashboard() {
       </nav>
 
       <div className="max-w-5xl mx-auto p-6">
-        <h2 className="text-2xl font-bold mb-6">Student Dashboard</h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">Student Dashboard</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className={`p-5 rounded-xl shadow text-center ${percentage < 75 ? 'bg-red-50' : 'bg-white'}`}>
@@ -104,7 +104,7 @@ export default function StudentDashboard() {
                 <div className="flex justify-between items-start">
                   <div>
                     <span className={`text-xs px-2 py-0.5 rounded-full mr-2 ${m.type === 'lesson' ? 'bg-blue-100 text-blue-600' : m.type === 'assignment' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`}>{m.type}</span>
-                    <span className="font-medium">{m.title}</span>
+                    <span className="font-medium text-gray-800">{m.title}</span>
                   </div>
                   <span className="text-xs text-gray-400">{m.courses?.name}</span>
                 </div>
@@ -116,12 +116,12 @@ export default function StudentDashboard() {
 
         {activeTab === 'attendance' && (
           <div className="bg-white p-5 rounded-xl shadow">
-            <h3 className="font-semibold mb-4">My Attendance</h3>
+            <h3 className="font-semibold mb-4 text-gray-800">My Attendance</h3>
             {attendance.length === 0 && <p className="text-gray-400 text-sm">No attendance records yet.</p>}
             {attendance.map(a => (
               <div key={a.id} className="flex justify-between items-center py-3 border-b">
                 <div>
-                  <p className="text-sm font-medium">{a.courses?.name}</p>
+                  <p className="text-sm font-medium text-gray-800">{a.courses?.name}</p>
                   <p className="text-xs text-gray-400">{new Date(a.date).toLocaleDateString()}</p>
                 </div>
                 <span className={`text-xs px-3 py-1 rounded-full font-medium ${a.status === 'present' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>

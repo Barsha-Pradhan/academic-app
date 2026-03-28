@@ -55,7 +55,7 @@ export default function TeacherDashboard() {
 
       <div className="max-w-5xl mx-auto p-6">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Teacher Dashboard</h2>
+          <h2 className="text-2xl font-bold text-gray-800">Teacher Dashboard</h2>
           <button
             onClick={() => setShowAddCourse(true)}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm"
@@ -66,50 +66,8 @@ export default function TeacherDashboard() {
 
         {showAddCourse && (
           <div className="bg-white p-5 rounded-xl shadow mb-6">
-            <h3 className="font-semibold mb-3">New Course</h3>
+            <h3 className="font-semibold mb-3 text-gray-800">New Course</h3>
             <input
               type="text"
               placeholder="Course Name"
-              className="w-full border p-3 rounded-lg mb-3 text-sm"
-              value={courseName}
-              onChange={e => setCourseName(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Semester (e.g. Semester 1 2024)"
-              className="w-full border p-3 rounded-lg mb-3 text-sm"
-              value={semester}
-              onChange={e => setSemester(e.target.value)}
-            />
-            <div className="flex gap-2">
-              <button onClick={handleAddCourse} className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm">Save</button>
-              <button onClick={() => setShowAddCourse(false)} className="bg-gray-200 px-4 py-2 rounded-lg text-sm">Cancel</button>
-            </div>
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {courses.length === 0 && (
-            <div className="bg-white p-5 rounded-xl shadow col-span-2">
-              <p className="text-gray-400 text-sm">No courses yet. Click "Add Course" to get started.</p>
-            </div>
-          )}
-          {courses.map(course => (
-            <div key={course.id} className="bg-white p-5 rounded-xl shadow">
-              <h3 className="font-semibold text-lg">{course.name}</h3>
-              <p className="text-gray-500 text-sm mb-4">{course.semester}</p>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => router.push(`/teacher/course/${course.id}`)}
-                  className="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm"
-                >
-                  Manage Course
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
+              className="w-full border p-3 rounded-lg mb-3 text-sm text-gray-800 placeholder-gray-400"
