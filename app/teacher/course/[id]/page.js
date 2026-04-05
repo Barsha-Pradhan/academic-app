@@ -60,7 +60,7 @@ export default function CoursePage() {
       </nav>
 
       <div className="max-w-5xl mx-auto p-6">
-        <h2 className="text-2xl font-bold mb-1">{course?.name}</h2>
+        <h2 className="text-2xl font-bold mb-1 text-gray-800">{course?.name}</h2>
         <p className="text-gray-500 mb-6">{course?.semester}</p>
 
         <div className="flex gap-2 mb-6">
@@ -78,14 +78,14 @@ export default function CoursePage() {
         {activeTab === 'materials' && (
           <div>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-semibold">Materials</h3>
+              <h3 className="font-semibold text-gray-800">Materials</h3>
               <button onClick={() => setShowAddMaterial(true)} className="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm">+ Add Material</button>
             </div>
             {showAddMaterial && (
               <div className="bg-white p-5 rounded-xl shadow mb-4">
-                <input type="text" placeholder="Title" className="w-full border p-3 rounded-lg mb-3 text-sm" value={title} onChange={e => setTitle(e.target.value)} />
-                <textarea placeholder="Description" className="w-full border p-3 rounded-lg mb-3 text-sm" value={description} onChange={e => setDescription(e.target.value)} />
-                <select className="w-full border p-3 rounded-lg mb-3 text-sm" value={type} onChange={e => setType(e.target.value)}>
+                <input type="text" placeholder="Title" className="w-full border p-3 rounded-lg mb-3 text-sm text-gray-800 placeholder-gray-400" value={title} onChange={e => setTitle(e.target.value)} />
+                <textarea placeholder="Description" className="w-full border p-3 rounded-lg mb-3 text-sm text-gray-800 placeholder-gray-400" value={description} onChange={e => setDescription(e.target.value)} />
+                <select className="w-full border p-3 rounded-lg mb-3 text-sm text-gray-800" value={type} onChange={e => setType(e.target.value)}>
                   <option value="lesson">Lesson Plan</option>
                   <option value="material">Study Material</option>
                   <option value="assignment">Assignment</option>
@@ -102,7 +102,7 @@ export default function CoursePage() {
                 <div className="flex justify-between items-start">
                   <div>
                     <span className={`text-xs px-2 py-0.5 rounded-full mr-2 ${m.type === 'lesson' ? 'bg-blue-100 text-blue-600' : m.type === 'assignment' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`}>{m.type}</span>
-                    <span className="font-medium">{m.title}</span>
+                    <span className="font-medium text-gray-800">{m.title}</span>
                   </div>
                   <span className="text-xs text-gray-400">{new Date(m.created_at).toLocaleDateString()}</span>
                 </div>
@@ -114,12 +114,12 @@ export default function CoursePage() {
 
         {activeTab === 'attendance' && (
           <div className="bg-white p-5 rounded-xl shadow">
-            <h3 className="font-semibold mb-4">Mark Attendance</h3>
-            <input type="date" className="border p-2 rounded-lg mb-4 text-sm" value={attendanceDate} onChange={e => setAttendanceDate(e.target.value)} />
+            <h3 className="font-semibold mb-4 text-gray-800">Mark Attendance</h3>
+            <input type="date" className="border p-2 rounded-lg mb-4 text-sm text-gray-800" value={attendanceDate} onChange={e => setAttendanceDate(e.target.value)} />
             {students.length === 0 && <p className="text-gray-400 text-sm">No students enrolled yet.</p>}
             {students.map(student => (
               <div key={student.id} className="flex justify-between items-center py-3 border-b">
-                <span className="text-sm font-medium">{student.name}</span>
+                <span className="text-sm font-medium text-gray-800">{student.name}</span>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setAttendance({ ...attendance, [student.id]: 'present' })}
@@ -140,11 +140,11 @@ export default function CoursePage() {
 
         {activeTab === 'students' && (
           <div className="bg-white p-5 rounded-xl shadow">
-            <h3 className="font-semibold mb-4">Enrolled Students</h3>
+            <h3 className="font-semibold mb-4 text-gray-800">Enrolled Students</h3>
             {students.length === 0 && <p className="text-gray-400 text-sm">No students enrolled yet.</p>}
             {students.map(student => (
               <div key={student.id} className="py-3 border-b">
-                <p className="font-medium text-sm">{student.name}</p>
+                <p className="font-medium text-sm text-gray-800">{student.name}</p>
                 <p className="text-gray-400 text-xs">{student.email}</p>
               </div>
             ))}
