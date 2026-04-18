@@ -48,7 +48,7 @@ export default function ParentDashboard() {
       </nav>
 
       <div className="max-w-5xl mx-auto p-6">
-        <h2 className="text-2xl font-bold mb-6">Parent Dashboard</h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">Parent Dashboard</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <div className={`p-5 rounded-xl shadow text-center ${percentage < 75 ? 'bg-red-50' : 'bg-white'}`}>
@@ -65,12 +65,12 @@ export default function ParentDashboard() {
         </div>
 
         <div className="bg-white p-5 rounded-xl shadow">
-          <h3 className="font-semibold mb-4">Attendance History</h3>
+          <h3 className="font-semibold mb-4 text-gray-800">Attendance History</h3>
           {attendance.length === 0 && <p className="text-gray-400 text-sm">No attendance records yet.</p>}
           {attendance.map(a => (
             <div key={a.id} className="flex justify-between items-center py-3 border-b">
               <div>
-                <p className="text-sm font-medium">{a.courses?.name}</p>
+                <p className="text-sm font-medium text-gray-800">{a.courses?.name}</p>
                 <p className="text-xs text-gray-400">{new Date(a.date).toLocaleDateString()}</p>
               </div>
               <span className={`text-xs px-3 py-1 rounded-full font-medium ${a.status === 'present' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
