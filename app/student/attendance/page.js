@@ -1,4 +1,5 @@
 'use client'
+
 import { useState, useRef, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Send, MessageCircle, AlertTriangle, Calendar } from 'lucide-react'
@@ -6,7 +7,7 @@ import { Send, MessageCircle, AlertTriangle, Calendar } from 'lucide-react'
 export default function StudentAttendanceView() {
   const [user, setUser] = useState(null)
   const [regCode, setRegCode] = useState('')
-  const [submittedCode, setSubmittedCode] = useState('') // ✅ tracks what was actually submitted
+  const [submittedCode, setSubmittedCode] = useState('')
   const [showTable, setShowTable] = useState(false)
   const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState('attendance')
@@ -19,12 +20,20 @@ export default function StudentAttendanceView() {
     const getUserData = async () => {
       const { data: { user: authUser } } = await supabase.auth.getUser()
       if (authUser) {
-        const { data } = await supabase.from('users').select('*').eq('id', authUser.id).single()
+        const { data } = await supabase
+          .from('users')
+          .select('*')
+          .eq('id', authUser.id)
+          .single()
+
         setUser(data)
       }
     }
+
     getUserData()
   }, [])
+
+  // ... keep ALL your remaining code exactly same ...
 
   const allAttendanceData = {
     "FALL SEMESTER 2024-25": [
