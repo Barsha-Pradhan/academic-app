@@ -1,13 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createBrowserClient } from '@supabase/ssr';
+import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation';
 
-const supabase = createBrowserClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+
 
 export default function StudentProfile() {
   const [studentData, setStudentData] = useState(null);
@@ -61,15 +58,15 @@ export default function StudentProfile() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p>Loading profile...</p>
+        <p className="text-gray-700 text-lg">Loading profile...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-red-600">
-        {error}
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-red-600 font-semibold">{error}</p>
       </div>
     );
   }
@@ -78,21 +75,27 @@ export default function StudentProfile() {
     <div className="min-h-screen bg-gray-50">
       <div className="ml-64 p-8">
 
-        <div className="flex justify-between mb-6">
-          <h2 className="text-2xl font-bold">Student Profile</h2>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">Student Profile</h2>
 
           <button
             onClick={handleLogout}
-            className="bg-red-600 text-white px-4 py-2 rounded"
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors"
           >
             Logout
           </button>
         </div>
 
-        <div className="bg-white p-6 rounded shadow">
-          <p><b>Name:</b> {studentData?.full_name || '---'}</p>
-          <p><b>Email:</b> {studentData?.email || '---'}</p>
-          <p><b>Student ID:</b> {studentData?.student_id || '---'}</p>
+        <div className="bg-white p-6 rounded-lg shadow">
+          <p className="text-gray-800 mb-3">
+            <b className="text-gray-900">Name:</b> {studentData?.full_name || '---'}
+          </p>
+          <p className="text-gray-800 mb-3">
+            <b className="text-gray-900">Email:</b> {studentData?.email || '---'}
+          </p>
+          <p className="text-gray-800">
+            <b className="text-gray-900">Student ID:</b> {studentData?.student_id || '---'}
+          </p>
         </div>
 
       </div>
